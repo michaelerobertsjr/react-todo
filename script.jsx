@@ -11,7 +11,8 @@ const todo = (state, action) => {
                 return state;
             }
 
-            return Object.assign({}, state, {
+            return Object.assign({}, {
+                state,
                 completed: !state.completed
             });
         default:
@@ -23,8 +24,8 @@ const todos = (state = [], action) => {
     switch (action.type) {
         case 'ADD_TODO':
             return [
-                Object.assign({}, state,
-                todo(undefined, action))
+                ...state,
+                todo(undefined, action)
             ];
         case 'TOGGLE_TODO':
             return state.map(t =>
