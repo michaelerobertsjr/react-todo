@@ -31,3 +31,7 @@ build/Release
 node_modules
 
 # Created by .ignore support plugin (hsz.mobi)
+
+compiled-script.jsx
+pre-script.jsx
+script-compiled.js

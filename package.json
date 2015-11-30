@@ -1,0 +1,25 @@
+{
+  "name": "react-todo",
+  "version": "1.0.0",
+  "description": "Redux example",
+  "main": "script-compiled.js",
+  "dependencies": {
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelerobertsjr/react-todo.git"
+  },
+  "keywords": [
+    "redux"
+  ],
+  "author": "michael e roberts jr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/michaelerobertsjr/react-todo/issues"
+  },
+  "homepage": "https://github.com/michaelerobertsjr/react-todo#readme"
+}
