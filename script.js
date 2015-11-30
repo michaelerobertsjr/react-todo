@@ -14,10 +14,10 @@ const todo = (state, action) => {
             return {
                 ...state,
                 completed: !state.completed
-    };
-default:
-    return state;
-}
+            };
+        default:
+            return state;
+    }
 };
 
 const todos = (state = [], action) => {
@@ -26,20 +26,18 @@ const todos = (state = [], action) => {
             return [
                 ...state,
                 todo(undefined, action)
-        ];
+            ];
         case 'TOGGLE_TODO':
             return state.map(t =>
                 todo(t, action)
-        );
+            );
         default:
             return state;
     }
 };
 
-const visibilityFilter = (
-    state = 'SHOW_ALL',
-        action
-) => {
+const visibilityFilter = (state = 'SHOW_ALL',
+                          action) => {
     switch (action.type) {
         case 'SET_VISIBILITY_FILTER':
             return action.filter;
@@ -84,44 +82,39 @@ const Link = ({
     active,
     children,
     onClick
-}) => {
+    }) => {
     if (active) {
         return <span>{children}</span>;
     }
 
     return (
         <a href='#'
-    onClick={e => {
+           onClick={e => {
         e.preventDefault();
         onClick();
     }}
->
-    {children}
-</a>
-);
+        >
+            {children}
+        </a>
+    );
 };
 
-const mapStateToLinkProps = (
-    state,
-        ownProps
-) => {
+const mapStateToLinkProps = (state,
+                             ownProps) => {
     return {
-        active:
-        ownProps.filter ===
+        active: ownProps.filter ===
         state.visibilityFilter
     };
 };
-const mapDispatchToLinkProps = (
-    dispatch,
-        ownProps
-) => {
+const mapDispatchToLinkProps = (dispatch,
+                                ownProps) => {
     return {
-            onClick: () => {
+        onClick: () => {
             dispatch(
                 setVisibilityFilter(ownProps.filter)
             );
-}
-};
+        }
+    };
 }
 const FilterLink = connect(
     mapStateToLinkProps,
@@ -129,20 +122,20 @@ const FilterLink = connect(
 )(Link);
 
 const Footer = () => (
-<p>
-Show:
-{' '}
-<FilterLink filter='SHOW_ALL'>
-    All
-    </FilterLink>
-    {', '}
-    <FilterLink filter='SHOW_ACTIVE'>
-    Active
-    </FilterLink>
-    {', '}
-    <FilterLink filter='SHOW_COMPLETED'>
-    Completed
-    </FilterLink>
+    <p>
+        Show:
+        {' '}
+        <FilterLink filter='SHOW_ALL'>
+            All
+        </FilterLink>
+        {', '}
+        <FilterLink filter='SHOW_ACTIVE'>
+            Active
+        </FilterLink>
+        {', '}
+        <FilterLink filter='SHOW_COMPLETED'>
+            Completed
+        </FilterLink>
     </p>
 );
 
@@ -150,33 +143,33 @@ const Todo = ({
     onClick,
     completed,
     text
-}) => (
-<li
-onClick={onClick}
-style={{
+    }) => (
+    <li
+        onClick={onClick}
+        style={{
     textDecoration:
         completed ?
             'line-through' :
             'none'
 }}
->
-{text}
-</li>
+    >
+        {text}
+    </li>
 );
 
 const TodoList = ({
     todos,
     onTodoClick
-}) => (
-<ul>
-{todos.map(todo =>
-<Todo
-key={todo.id}
-{...todo}
-onClick={() => onTodoClick(todo.id)}
-/>
-)}
-</ul>
+    }) => (
+    <ul>
+        {todos.map(todo =>
+            <Todo
+                key={todo.id}
+                {...todo}
+                onClick={() => onTodoClick(todo.id)}
+            />
+        )}
+    </ul>
 );
 
 let AddTodo = ({ dispatch }) => {
@@ -184,41 +177,37 @@ let AddTodo = ({ dispatch }) => {
 
     return (
         <div>
-        <input ref={node => {
+            <input ref={node => {
         input = node;
-    }} />
-<button onClick={() => {
+    }}/>
+            <button onClick={() => {
         dispatch(addTodo(input.value));
         input.value = '';
     }}>
-    Add Todo
-    </button>
-    </div>
-);
+                Add Todo
+            </button>
+        </div>
+    );
 };
 AddTodo = connect()(AddTodo);
 
-const getVisibleTodos = (
-    todos,
-        filter
-) => {
+const getVisibleTodos = (todos,
+                         filter) => {
     switch (filter) {
         case 'SHOW_ALL':
             return todos;
         case 'SHOW_COMPLETED':
             return todos.filter(
-                    t => t.completed
-        );
+                t => t.completed
+            );
         case 'SHOW_ACTIVE':
             return todos.filter(
-                    t => !t.completed
-        );
+                t => !t.completed
+            );
     }
 }
 
-const mapStateToTodoListProps = (
-    state
-) => {
+const mapStateToTodoListProps = (state) => {
     return {
         todos: getVisibleTodos(
             state.todos,
@@ -226,14 +215,12 @@ const mapStateToTodoListProps = (
         )
     };
 };
-const mapDispatchToTodoListProps = (
-    dispatch
-) => {
+const mapDispatchToTodoListProps = (dispatch) => {
     return {
-            onTodoClick: (id) => {
+        onTodoClick: (id) => {
             dispatch(toggleTodo(id));
-}
-};
+        }
+    };
 };
 const VisibleTodoList = connect(
     mapStateToTodoListProps,
@@ -241,18 +228,18 @@ const VisibleTodoList = connect(
 )(TodoList);
 
 const TodoApp = () => (
-<div>
-<AddTodo />
-<VisibleTodoList />
-<Footer />
-</div>
+    <div>
+        <AddTodo />
+        <VisibleTodoList />
+        <Footer />
+    </div>
 );
 
 const { createStore } = Redux;
 
 ReactDOM.render(
-<Provider store={createStore(todoApp)}>
-    <TodoApp />
+    <Provider store={createStore(todoApp)}>
+        <TodoApp />
     </Provider>,
     document.getElementById('root')
 );
