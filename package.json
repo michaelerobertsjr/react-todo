@@ -8,6 +8,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel --plugins transform-react-jsx script.jsx > pre-script.jsx && babel pre-script.jsx --out-file script-compiled.js"
   },
   "repository": {
     "type": "git",
